@@ -1,6 +1,7 @@
 <!doctype html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Happy Valentine's Day!</title>
   <link rel="icon" type="image/jpg" href="favicon.jpg">
@@ -15,12 +16,8 @@ body {
 	justify-content: center;
 	font-family: 'Playfair Display', Georgia, serif;
 	background-color: #fff8f8;
-	transition: opacity 0.8s ease;
 }
-body.fade-out {
-	opacity: 0;
-}
-/* Nền admin: spotlight trung tâm – giữa sáng, rìa tối, có chiều sâu */
+/* Nền spotlight – giữa sáng, rìa tối – giữa sáng, rìa tối, có chiều sâu */
 body.view-admin {
 	background: radial-gradient(
 		circle at center,
@@ -32,7 +29,6 @@ body.view-admin {
 	position: relative;
 }
 body.view-admin #admin-page { position: relative; z-index: 1; }
-/* ----- Giao diện admin (vào từ login.html) ----- */
 #admin-page {
 	display: none;
 	text-align: center;
@@ -175,8 +171,9 @@ body.view-admin #admin-page { display: block; }
 	font-family: 'Dancing Script', cursive;
 	font-weight: 600;
 }
-/* Nút thoát – hover đẹp, transition mượt */
+/* Nút về trang chủ */
 #admin-page .btn-exit {
+	display: inline-block;
 	margin-top: 8px;
 	padding: 6px 14px;
 	background: rgba(255, 182, 193, 0.9);
@@ -186,6 +183,7 @@ body.view-admin #admin-page { display: block; }
 	cursor: pointer;
 	font-size: 13px;
 	font-family: 'Playfair Display', Georgia, serif;
+	text-decoration: none;
 	transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 #admin-page .btn-exit:hover {
@@ -240,7 +238,6 @@ body.view-admin #admin-page { display: block; }
   </style>
 </head>
 <body>
-	<!-- Giao diện admin (vào từ login.html?admin=1 hoặc index.html?admin=1) -->
 	<div id="admin-page">
 		<div class="certificate">
 			<div class="ribbon">CERTIFICATE OF VALENTINES</div>
@@ -253,7 +250,7 @@ body.view-admin #admin-page { display: block; }
 			<p class="date">on this <span class="under">14th</span> day of <span class="under">February, 2026</span></p>
 		</div>
 		<a href="kyniem.html" class="btn-memories" id="btn-memories">Kỷ niệm</a>
-		<button type="button" class="btn-exit" id="btn-exit">Thoát về trang đăng nhập</button>
+		<a href="https://c0949030990.github.io/my-website/" class="btn-exit" id="btn-exit">Về trang chủ</a>
 	</div>
 
 	<!-- Music -->
@@ -264,40 +261,22 @@ body.view-admin #admin-page { display: block; }
 
 	<script type="text/javascript">
 (function() {
-	var isAdmin = /[?&]admin=1/.test(window.location.search);
-
-	// Không có ?admin=1 → chuyển về trang login (QR)
-	if (!isAdmin) {
-		window.location.href = 'login.html';
-		return;
-	}
-
 	document.body.classList.add('view-admin');
 
-	document.getElementById('btn-exit').onclick = function() {
-		window.location.href = 'login.html';
-	};
-
-	// ===== MUSIC CONTROL =====
 	var music = document.getElementById("bg-music");
 	var toggleBtn = document.getElementById("music-toggle");
 	if (music && toggleBtn) {
-		music.volume = 0;
+		music.volume = 0.25;
+		if (localStorage.getItem("musicPaused") === "true") music.pause();
 		var fade = setInterval(function() {
 			if (music.volume < 0.25) {
-				music.volume += 0.02;
-			} else {
-				music.volume = 0.25;
-				clearInterval(fade);
-			}
+				music.volume = Math.min(0.25, music.volume + 0.02);
+			} else { clearInterval(fade); }
 		}, 200);
 		document.addEventListener("click", function firstPlay() {
 			music.play().catch(function(){});
 			document.removeEventListener("click", firstPlay);
-		});
-		if (localStorage.getItem("musicPaused") === "true") {
-			music.pause();
-		}
+		}, { once: true });
 		toggleBtn.onclick = function() {
 			if (music.paused) {
 				music.play();
@@ -307,28 +286,6 @@ body.view-admin #admin-page { display: block; }
 				localStorage.setItem("musicPaused", "true");
 			}
 		};
-	}
-
-	// ===== CINEMATIC TRANSITION =====
-	var memoryBtn = document.getElementById("btn-memories");
-	if (memoryBtn) {
-		memoryBtn.addEventListener("click", function(e) {
-			e.preventDefault();
-			var musicEl = document.getElementById("bg-music");
-			if (musicEl) {
-				var fadeAudio = setInterval(function() {
-					if (musicEl.volume > 0.05) {
-						musicEl.volume -= 0.02;
-					} else {
-						clearInterval(fadeAudio);
-					}
-				}, 100);
-			}
-			document.body.classList.add("fade-out");
-			setTimeout(function() {
-				window.location.href = this.href;
-			}.bind(this), 800);
-		});
 	}
 })();
 	</script>
