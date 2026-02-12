@@ -90,15 +90,16 @@
 
 	<script>
 		(function() {
-			var url = window.location.href.split('?')[0].split('#')[0];
-			var isFile = url.indexOf('file://') === 0;
+			var base = window.location.href.split('?')[0].split('#')[0];
+			var isFile = base.indexOf('file://') === 0;
 			if (isFile) {
 				document.getElementById('file-warning').style.display = 'block';
-				url = 'https://example.com/valentine';
 			}
+			// QR trỏ thẳng vào trang thiệp (index.html?admin=1)
+			var cardUrl = base.replace(/login\.html$/i, 'index.html') + '?admin=1';
 			document.getElementById('qrcode-container').innerHTML = '';
 			new QRCode(document.getElementById('qrcode-container'), {
-				text: url,
+				text: cardUrl,
 				width: 260,
 				height: 260
 			});
