@@ -1,0 +1,336 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Happy Valentine's Day!</title>
+  <link rel="icon" type="image/jpg" href="favicon.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700&family=Great+Vibes&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+body {
+	min-height: 100vh;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-family: 'Playfair Display', Georgia, serif;
+	background-color: #fff8f8;
+	transition: opacity 0.8s ease;
+}
+body.fade-out {
+	opacity: 0;
+}
+/* Nền admin: spotlight trung tâm – giữa sáng, rìa tối, có chiều sâu */
+body.view-admin {
+	background: radial-gradient(
+		circle at center,
+		#ffe4ec 0%,
+		#f8cdda 40%,
+		#e7a1c4 100%
+	);
+	background-attachment: fixed;
+	position: relative;
+}
+body.view-admin #admin-page { position: relative; z-index: 1; }
+/* ----- Giao diện admin (vào từ login.html) ----- */
+#admin-page {
+	display: none;
+	text-align: center;
+	max-width: 90vw;
+}
+body.view-admin #admin-page { display: block; }
+/* Thiệp certificate – floatIn cực nhẹ + glow xịn quanh card */
+@keyframes floatIn {
+	from { opacity: 0; transform: translateY(15px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+#admin-page .certificate {
+	background: linear-gradient(180deg, #fffefb 0%, #fff8f5 100%);
+	width: 520px;
+	max-width: 95vw;
+	margin: 0 auto 20px;
+	box-shadow: 0 20px 40px rgba(214, 51, 108, 0.25);
+	border-radius: 28px;
+	border: 2px solid #ffd4e0;
+	padding: 0 0 40px 0;
+	position: relative;
+	overflow: hidden;
+	animation: floatIn 0.8s ease forwards;
+}
+#admin-page .certificate .ribbon {
+	background: linear-gradient(135deg, #ff9ebb 0%, #f06292 50%, #ec407a 100%);
+	color: #fff;
+	text-align: center;
+	padding: 16px 28px;
+	font-size: 0.95rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	border-radius: 0 0 24px 24px;
+	margin: 0 28px;
+	position: relative;
+	box-shadow: 0 4px 16px rgba(236, 64, 122, 0.35);
+	font-family: 'Playfair Display', Georgia, serif;
+}
+#admin-page .certificate .ribbon::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 6px;
+	background: rgba(255,255,255,0.4);
+	border-radius: 0 0 6px 6px;
+}
+#admin-page .certificate .stamp {
+	position: absolute;
+	top: 12px;
+	right: 32px;
+	width: 68px;
+	height: 68px;
+	border: 2px solid #e091a8;
+	border-radius: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: #fffbf9;
+	box-shadow: 0 4px 14px rgba(224, 145, 168, 0.3);
+	font-size: 0.45rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	line-height: 1.2;
+	color: #b85c7a;
+}
+#admin-page .certificate .stamp .stamp-text {
+	line-height: 1.1;
+}
+#admin-page .certificate .stamp .num {
+	font-size: 1.6rem;
+	line-height: 1;
+	margin-top: 2px;
+	color: #c2185b;
+}
+#admin-page .certificate .names {
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	gap: 20px;
+	margin: 36px 24px 16px;
+	flex-wrap: wrap;
+}
+#admin-page .certificate .names .name {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#admin-page .certificate .names .name span {
+	display: block;
+	border-bottom: 2px solid #e8b4c4;
+	padding-bottom: 6px;
+	min-width: 100px;
+	text-align: center;
+	font-size: 1.35rem;
+	color: #5d4037;
+	border-radius: 0 0 2px 2px;
+	font-family: 'Great Vibes', cursive;
+	transition: color 0.3s ease, border-color 0.3s ease;
+}
+#admin-page .certificate .names .name:hover span {
+	color: #c2185b;
+	border-bottom-color: #f48fb1;
+}
+#admin-page .certificate .names .amp {
+	font-size: 2rem;
+	font-weight: 300;
+	color: #e091a8;
+	line-height: 1;
+	padding-bottom: 12px;
+	font-family: 'Dancing Script', cursive;
+}
+#admin-page .certificate .statement {
+	font-size: 1.4rem;
+	font-weight: 600;
+	text-align: center;
+	color: #4e342e;
+	margin: 10px 28px 24px;
+	line-height: 1.4;
+	letter-spacing: 0.02em;
+	font-family: 'Dancing Script', cursive;
+}
+#admin-page .certificate .date {
+	text-align: center;
+	font-size: 1rem;
+	color: #6d4c41;
+	font-family: 'Playfair Display', Georgia, serif;
+}
+#admin-page .certificate .date .under {
+	text-decoration: underline;
+	text-decoration-color: #e8b4c4;
+	text-underline-offset: 3px;
+}
+#admin-page h2 {
+	margin: 0 0 20px 0;
+	color: #5d4037;
+	font-size: 1.3rem;
+	font-family: 'Dancing Script', cursive;
+	font-weight: 600;
+}
+/* Nút thoát – hover đẹp, transition mượt */
+#admin-page .btn-exit {
+	margin-top: 8px;
+	padding: 6px 14px;
+	background: rgba(255, 182, 193, 0.9);
+	color: #8d4f5e;
+	border: 1px solid rgba(244, 143, 177, 0.6);
+	border-radius: 20px;
+	cursor: pointer;
+	font-size: 13px;
+	font-family: 'Playfair Display', Georgia, serif;
+	transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+#admin-page .btn-exit:hover {
+	background: rgba(244, 143, 177, 0.95);
+	color: #5c3542;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(244, 143, 177, 0.35);
+}
+#admin-page .btn-exit::before {
+	content: '← ';
+	opacity: 0.8;
+}
+/* Nút Kỷ niệm – trên nút Thoát */
+#admin-page .btn-memories {
+	display: block;
+	margin: 0 auto 10px;
+	padding: 8px 18px;
+	background: rgba(255, 200, 210, 0.95);
+	color: #6d3a47;
+	border: 1px solid rgba(244, 143, 177, 0.5);
+	border-radius: 20px;
+	cursor: pointer;
+	font-size: 14px;
+	font-family: 'Playfair Display', Georgia, serif;
+	text-decoration: none;
+	transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+#admin-page .btn-memories:hover {
+	background: rgba(244, 143, 177, 0.95);
+	color: #5c3542;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(244, 143, 177, 0.35);
+}
+/* Nút nhạc */
+#music-toggle {
+	position: fixed;
+	bottom: 18px;
+	right: 18px;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	border: none;
+	background: rgba(255,255,255,0.6);
+	backdrop-filter: blur(6px);
+	font-size: 14px;
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+	transition: 0.3s;
+	z-index: 100;
+}
+#music-toggle:hover { transform: scale(1.08); }
+  </style>
+</head>
+<body>
+	<!-- Giao diện admin (vào từ login.html?admin=1 hoặc index.html?admin=1) -->
+	<div id="admin-page">
+		<div class="certificate">
+			<div class="ribbon">CERTIFICATE OF VALENTINES</div>
+			<div class="names">
+				<div class="name"><span>Khanh Duy</span></div>
+				<div class="amp">&</div>
+				<div class="name"><span>Hong Ngoc</span></div>
+			</div>
+			<p class="statement">are hereby officially valentines</p>
+			<p class="date">on this <span class="under">14th</span> day of <span class="under">February, 2026</span></p>
+		</div>
+		<a href="kyniem.html" class="btn-memories" id="btn-memories">Kỷ niệm</a>
+		<button type="button" class="btn-exit" id="btn-exit">Thoát về trang đăng nhập</button>
+	</div>
+
+	<!-- Music -->
+	<audio id="bg-music" autoplay loop>
+		<source src="music.mp3" type="audio/mp3">
+	</audio>
+	<button id="music-toggle" type="button">♫</button>
+
+	<script type="text/javascript">
+(function() {
+	var isAdmin = /[?&]admin=1/.test(window.location.search);
+
+	// Không có ?admin=1 → chuyển về trang login (QR)
+	if (!isAdmin) {
+		window.location.href = 'login.html';
+		return;
+	}
+
+	document.body.classList.add('view-admin');
+
+	document.getElementById('btn-exit').onclick = function() {
+		window.location.href = 'login.html';
+	};
+
+	// ===== MUSIC CONTROL =====
+	var music = document.getElementById("bg-music");
+	var toggleBtn = document.getElementById("music-toggle");
+	if (music && toggleBtn) {
+		music.volume = 0;
+		var fade = setInterval(function() {
+			if (music.volume < 0.25) {
+				music.volume += 0.02;
+			} else {
+				music.volume = 0.25;
+				clearInterval(fade);
+			}
+		}, 200);
+		document.addEventListener("click", function firstPlay() {
+			music.play().catch(function(){});
+			document.removeEventListener("click", firstPlay);
+		});
+		if (localStorage.getItem("musicPaused") === "true") {
+			music.pause();
+		}
+		toggleBtn.onclick = function() {
+			if (music.paused) {
+				music.play();
+				localStorage.setItem("musicPaused", "false");
+			} else {
+				music.pause();
+				localStorage.setItem("musicPaused", "true");
+			}
+		};
+	}
+
+	// ===== CINEMATIC TRANSITION =====
+	var memoryBtn = document.getElementById("btn-memories");
+	if (memoryBtn) {
+		memoryBtn.addEventListener("click", function(e) {
+			e.preventDefault();
+			var musicEl = document.getElementById("bg-music");
+			if (musicEl) {
+				var fadeAudio = setInterval(function() {
+					if (musicEl.volume > 0.05) {
+						musicEl.volume -= 0.02;
+					} else {
+						clearInterval(fadeAudio);
+					}
+				}, 100);
+			}
+			document.body.classList.add("fade-out");
+			setTimeout(function() {
+				window.location.href = this.href;
+			}.bind(this), 800);
+		});
+	}
+})();
+	</script>
+</body>
+</html>
